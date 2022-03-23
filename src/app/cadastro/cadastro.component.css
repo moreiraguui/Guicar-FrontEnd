@@ -1,0 +1,70 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap%27");
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap%27");
+
+.bgGeral {
+  padding: 50px 0;
+  background-color: rgb(241, 241, 241);
+}
+
+.arredoLogin {
+  border-radius: 30px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+  background-color: #ffffff;
+  padding: 30px 30px !important;
+}
+
+#tamEntrar {
+  background-image: url("https://i.imgur.com/QpjSQFn.png") !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+@media (max-width: 768px) {
+  #tamEntrar {
+    display: none !important;
+  }
+  .bgLeft {
+    background-color: #ffffff;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 30px 20px !important;
+  }
+  label {
+    font-size: 0.7rem !important;
+    font-family: Montserrat, sans-serif !important;
+  }
+}
+
+label {
+  font-size: 0.9rem !important;
+  font-family: Montserrat, sans-serif !important;
+}
+
+input {
+  font-size: 0.8rem !important;
+  font-family: Poppins, sans-serif !important;
+}
+
+.possuiCada {
+  font-family: Poppins, sans-serif !important;
+}
+
+button {
+  font-family: Poppins, sans-serif !important;
+}
+
+button:hover {
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
+
+.btn2 {
+  background-color: black !important;
+  border: black 1px solid !important;
+  color: white;
+}
+
+.btn3 {
+  border: 2px solid black;
+}

@@ -1,0 +1,104 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@100;200;300;400;500;600;700;800&display=swap%27");
+
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500&display=swap%27");
+
+.bgGeral {
+  padding: 120px 0;
+  background-color: rgb(241, 241, 241);
+  
+}
+
+.textMenu {
+  font-family: Poppins, sans-serif;
+  color: #4e4e4e;
+}
+
+#tamEntrar {
+  background-image: url("https://i.imgur.com/8lB98zA.png");
+}
+
+.bgRight {
+  background-color: #ffffff;
+  padding: 70px 70px !important;
+  border-radius: 20px;
+  box-shadow: rgba(17, 17, 26, 0.1) 0px 1px 0px,
+    rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 48px;
+}
+
+h2 {
+  font-family: Poppins, sans-serif;
+}
+
+h1 {
+  font-family: Montserrat, sans-serif;
+  color: #4e4e4e;
+  font-size: 3rem !important;
+  margin-bottom: 30px;
+}
+
+.formText {
+  padding-bottom: 15px;
+  margin-bottom: 0;
+}
+
+.btn {
+  background: #000000;  /* fallback for old browsers */
+  background: -webkit-linear-gradient(to right, #434343, #000000);  /* Chrome 10-25, Safari 5.1-6 */
+  background: linear-gradient(to right, #434343, #000000); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  color: #fff;
+  transition: 0.5s;
+  opacity: 1;
+  border: none !important;
+  border-radius: 30px;
+  font-family: Poppins, sans-serif !important;
+}
+
+.btn:hover {
+  opacity: 0.9;
+  transform: scale(0.8);
+  transition: all 0.3s ease;
+}
+
+input {
+  border-radius: 20px;
+  font-family: Poppins, sans-serif !important;
+  font-size: 0.8rem !important;
+}
+
+label {
+  font-size: 1.12rem !important;
+  font-family: Montserrat, sans-serif !important;
+}
+
+.txtRemb {
+  font-size: 1rem !important;
+  padding: 0 !important;
+  margin-left: 21px;
+  font-family: Poppins, sans-serif !important;
+}
+
+@media (max-width: 768px) {
+  #tamEntrar {
+    display: none !important;
+  }
+  .bgRight {
+    background-color: #ffffff;
+    border: 1px solid #ffffff;
+    border-top-left-radius: 10px;
+    border-bottom-left-radius: 10px;
+    padding: 70px 70px !important;
+  }
+}
+
+.form-check-input {
+  margin-top: 5px !important;
+}
+
+.naoTemCad {
+  font-family: Poppins, sans-serif !important;
+  font-size: 0.9rem !important;
+}
+
+.bgFooter {
+  background-image: url("https://images5.alphacoders.com/120/1202843.jpg") !important;
+}

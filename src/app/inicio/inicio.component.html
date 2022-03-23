@@ -1,0 +1,223 @@
+<div class="container-fluid">
+  <div class="row"> 
+
+<!-- Menu de edição de usuário  -->
+<div class="col-md-2 d-flex justify-content-center pt-5 p-0" *ngIf = "auth.logado()">
+  <div class="card card2 d-flex align-items-center justify-content-center" style="width: 16rem; height: 33rem !important; ">
+    <img src="{{foto}}" class="card-img-top foto2 py-3" alt=" ">
+    <div class="card-body p-0 px-3">
+      <h5 class="card-title text-center">{{nome}}</h5>
+      <hr class="py-1">
+      <a (click)='findByIdUsuario()' class="btn btn-outline-dark mb-3 w-100" id="nav-minhasPostagens-tab" data-toggle="tab" href="#minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false"><i class="fas fa-user pr-1"></i>Meus anúncios</a>
+      <a href="#" class="btn btn-dark mb-3 w-100" [routerLink]="['/edit-usuario', id]"><i class="fas fa-user-edit pr-1"></i> Editar Perfil</a>
+      <hr>
+      <a href="#" class="btn btnSair w-100" (click)='sair()'><i class="fas fa-sign-out-alt pr-1"></i>Sair</a>
+    </div>
+  </div>
+ </div>
+
+ <!-- fim do menu de edição de usuário -->
+
+<!-- Texto de boas vindas -->
+  <div class="col-md-8" id="anuncioGeral"> 
+    <div class="container col-md-10" *ngIf = "auth.logado()">  
+  <div class="row d-block align-items center justify-content-center">      
+    <h1 class="txtWelcome pt-3">Anúncios Guicar</h1>
+    <h5 class="txtWelcome2">Encontre aqui o seu automóvel com preço baixo e procedência.</h5>  
+    <div class="d-flex flex-row justify-content-start">                                       
+    <button class="btn btn-dark mr-2" data-toggle="modal" data-target="#novaPostagem"><i class="fas fa-plus pr-2"></i>Novo Anúncio</button>
+    <a class= "btn btn-outline-dark" href="#postagens"><i class="fas fa-eye pr-2"></i>Ver Anúncios</a>
+  </div>  
+  </div>
+</div>
+<!-- fim do texto de boas vindas --> 
+
+<hr class="py-1" *ngIf = "auth.logado()">
+
+<!-- Barra de navegação entre postagens -->
+  <div class="container my-3 px-0" id="postagens">
+      <nav>
+          <div class="nav nav-tabs d-flex justify-content-center" id="nav-tab" role="tablist">
+            <a class="nav-link active txtNav2 text-secondary font-weight-bold" id="nav-todasPostagens-tab" data-toggle="tab" href="#todasPostagens" role="tab" aria-controls="nav-todasPostagens" aria-selected="true">Todos os Anúncios</a>
+            <a (click)="findByIdUsuario()" class="nav-link text-secondary txtNav2 font-weight-bold" id="nav-minhasPostagens-tab" data-toggle="tab" href="#minhasPostagens" role="tab" aria-controls="nav-minhasPostagens" aria-selected="false" *ngIf = "auth.logado()">Meus Anúncios</a>
+          </div>
+        </nav>    
+<!-- Barra de navegação entre postagens -->
+
+<!-- Todas as postagens    -->
+        <div class="txtNav tab-content mt-4" id="nav-tabContent">
+          <div class="tab-pane fade show active" id="todasPostagens" role="tabpanel" aria-labelledby="nav-todasPostagens-tab">
+            <div class="row row-cols-1 row-cols-md-3">
+              <div class="col mb-4" *ngFor='let item of listaPostagens | orderBy: order'>
+                <div class="card postCard" >
+                  <img src="{{item.foto}}" class="card-img-top imgCard">
+                  <div class="card-body px-3 py-2">
+                    <h5 class="card-title nome mb-1">{{item.nome}}</h5>
+                    <p class="card-text info mb-2">{{item.marca}} ﹒{{item.modelo}}﹒{{item.ano}}</p>
+                    <p class="card-text preco">{{item.preco | currency: "BRL"}}</p>          
+                
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+ <!-- fim de todas as postagens -->  
+ 
+<!-- Minhas postagens -->
+          <div class="tab-pane fade" id="minhasPostagens" role="tabpanel" aria-labelledby="nav-minhasPostagens-tab">   
+            <div class="row row-cols-1 row-cols-md-3">
+              <div class="col mb-4" *ngFor='let item of usuario.postagem | orderBy: order'>
+                <div class="card postCard" >
+                  <img src="{{item.foto}}" class="card-img-top imgCard">
+                  <div class="card-body px-3 py-2">
+                    <h5 class="card-title nome mb-1">{{item.nome}}</h5>
+                    <p class="card-text info mb-2">{{item.marca}} ﹒{{item.modelo}}﹒{{item.ano}}</p>
+                    <div class="d-flex justify-content-start"> 
+                    <p class="card-text preco">{{item.preco | currency: "BRL"}}</p>
+                  </div>
+                  <div class="d-flex justify-content-center mt-4"><button class="btn btn-outline-dark mr-3 w-100" data-toggle="modal" data-target="#editarPostagem" href="" value="{{item.id}}" #ref (click)="findByIdPostagem(ref.value)"><i class="fas fa-edit pr-1"></i>Editar</button>
+                    <button class="btn btn-danger text-light w-100" data-toggle="modal" data-target="#deletePostagem" href="" value="{{item.id}}" #ref (click)="findByIdPostagem(ref.value)"><i class="fas fa-trash-alt pr-1"></i>Apagar</button>
+                  </div>
+                </div>
+                </div>
+                </div>
+              </div>
+          </div>
+ <!-- fim de minhas postagens --> 
+
+
+
+  <!-- Modal Nova Postagem -->
+    <div class="modal fade" id="novaPostagem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="bgModal modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="novaPostagemLabel">Novo Anúncio</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body px-3">
+  
+              <div class="form-group">
+                <label for="nome"><i class="fas fa-pencil-alt pr-2"></i>Nome</label>
+                <input [(ngModel)]="postagem.nome" type="text" class="form-control" id="titulo" placeholder="Ex: IX35 GL1 2.0">
+              </div>
+      
+              <div class="form-group">
+                <label for="marca"><i class="far fa-building pr-2"></i>Marca</label>
+                <input [(ngModel)]="postagem.marca" class="form-control" name="marca" id="marca " placeholder="Ex: Fiat, Hyundai">
+              </div>
+      
+              <div class="form-group">
+                <label for="modelo"><i class="fas fa-car pr-2" ></i>Modelo</label>
+                <input [(ngModel)]="postagem.modelo" class="form-control" name="modelo" id="modelo " placeholder="Ex: SUV, Hatch">
+              </div>
+      
+              <div class="form-group">
+                <label for="foto"><i class="fas fa-images pr-2"></i>Link da imagem</label>
+                <input [(ngModel)]="postagem.foto" type="text" class="form-control" id="foto" placeholder="Link da imagem">
+              </div>
+      
+              <div class="form-group">
+                <label for="preco"><i class="fas fa-dollar-sign pr-2"></i>Preço</label>
+                <div class="input-group"> 
+                <div class="input-group-prepend">
+                  <span class="input-group-text">R$</span> </div>
+                 <input [(ngModel)]="postagem.preco" type="text" class="form-control" name="preco" id="preco " placeholder="Ex: 20690">
+              </div>
+              </div>
+          
+              <div class="form-group">
+                <label for="ano"><i class="fas fa-calendar-alt pr-2"></i>Ano</label>
+                <input [(ngModel)]="postagem.ano" class="form-control" name="preco" id="preco " placeholder="Ex: 2010">
+              </div>   
+            </div>
+
+            <div class="d-flex justify-content-center">
+              <button type="button" class="btn btn-danger ml-2 mr-2 w-100 mb-2" data-dismiss="modal"><i class="fas fa-times-circle pr-2"></i>Cancelar</button>
+              <button type="button" class="btn btn-outline-dark mr-2 w-100 mb-2" data-dismiss="modal" (click)="publicar()"><i class="fas fa-check-circle pr-2"></i>Publicar</button>
+            </div>
+          </div>
+        </div>
+    </div>
+<!-- Fim do Modal Nova Postagem -->
+
+<!-- Modal editar postagem -->
+<div class="modal fade" id="editarPostagem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="bgModal modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="editarPostagemLabel">Editar Anúncio</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body px-3">
+
+        <div class="form-group">
+          <label for="nome"><i class="fas fa-pencil-alt pr-2"></i>Nome</label>
+          <input [(ngModel)]="postagemUtil.nome" type="text" class="form-control" id="titulo" placeholder="Ex: IX35 GL1 2.0">
+        </div>
+
+        <div class="form-group">
+          <label for="marca"><i class="far fa-building pr-2"></i>Marca</label>
+          <input [(ngModel)]="postagemUtil.marca" class="form-control" name="marca" id="marca " placeholder="Ex: Fiat, Hyundai">
+        </div>
+
+        <div class="form-group">
+          <label for="modelo"><i class="fas fa-car pr-2" ></i>Modelo</label>
+          <input [(ngModel)]="postagemUtil.modelo" class="form-control" name="modelo" id="modelo " placeholder="Ex: SUV, Hatch">
+        </div>
+
+        <div class="form-group">
+          <label for="foto"><i class="fas fa-images pr-2"></i>Link da imagem</label>
+          <input [(ngModel)]="postagemUtil.foto" type="text" class="form-control" id="foto" placeholder="Link da imagem">
+        </div>
+
+        <div class="form-group">
+          <label for="preco"><i class="fas fa-dollar-sign pr-2"></i>Preço</label>
+          <div class="input-group"> 
+          <div class="input-group-prepend">
+            <span class="input-group-text">R$</span> </div>
+           <input [(ngModel)]="postagemUtil.preco" type="text" class="form-control" name="preco" id="preco " placeholder="Ex: 20690">
+        </div>
+        </div>
+    
+        <div class="form-group">
+          <label for="ano"><i class="fas fa-calendar-alt pr-2"></i>Ano</label>
+          <input [(ngModel)]="postagem.ano" class="form-control" name="preco" id="preco " placeholder="Ex: 2010">
+        </div>            
+      </div>
+
+      <div class="d-flex justify-content-center">
+        <button type="button" class="btn btn-danger ml-2 mr-2 w-100 mb-2" data-dismiss="modal"><i class="fas fa-times-circle pr-2"></i>Cancelar</button>
+        <button type="button" class="btn btn-outline-dark mr-2 w-100 mb-2" data-dismiss="modal" (click)="atualizar()"><i class="fas fa-check-circle pr-2"></i>Atualizar</button>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Fim Modal editar postagem -->
+
+<!-- Modal excluir postagem -->
+<div class="modal fade" id="deletePostagem" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="bgModal modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deletePostagemLabel">Tem certeza que você deseja excluir o anúncio?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body px-3 d-flex justify-content-center">
+        <button type="button" class="btn btn-danger ml-2 mr-2 w-100 mb-2" routerLink="/inicio" data-dismiss="modal"><i class="fas fa-times-circle pr-2"></i>Não</button>
+        <button type="button" data-dismiss="modal" class="btn btn-outline-dark mr-2 w-100 mb-2" (click)="apagar()"><i class="fas fa-check-circle pr-2"></i>Sim</button>
+      
+    </div>
+    </div>
+  </div>
+</div>
+
+
+    </div>
+</div>
